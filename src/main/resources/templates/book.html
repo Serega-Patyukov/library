@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>book</title>
+</head>
+<body>
+    <h1>Страница книги</h1>
+    <h3 th:object="${book}" >
+        <span th:text="*{name + ', ' + author + (year == null ? '' : ', ' + year)}"></span>
+    </h3>
+    <div th:if="${book.person == null}">
+        <h3>Эта книга свободна. Кому назначить ее?</h3>
+        <form action="/books/appoint" method="post">
+            <h3>
+                <span>Выберите человека</span>
+                <span>
+                    <select name="idPerson">
+                        <option th:each="person : ${listPerson}" th:value="${person.id}" th:text="${person.name}">person</option>
+                    </select>
+                </span>
+                <input type="hidden" name="idBook" th:value="${book.id}">
+                <span>
+                    <button>Назначить книгу</button>
+                </span>
+            </h3>
+        </form>
+    </div>
+    <div th:if="${book.person != null}">
+        <h3 th:text="${'Книга сейчас у: ' + person.name}"></h3>
+        <form action="/books/release" method="post">
+            <input type="hidden" name="idBook" th:value="${book.id}">
+            <input type="hidden" name="idPerson" th:value="${person.id}">
+            <button>Освободить книгу</button>
+        </form>
+    </div>
+    <hr>
+    <a th:href="${'/books/' + book.id + '/edit'}"><button>редактировать</button></a>
+    <br>
+    <form th:action="${'/books/' + id + '/delete'}" method="post">
+        <button>удалить</button>
+    </form>
+</body>
+</html>

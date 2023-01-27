@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}"/>
+    <title>createBook</title>
+</head>
+<body>
+    <h1>Страница добавления книги</h1>
+    <form action="/books/new" method="post" th:object="${book}">
+        <h3>
+            Введите название книги:
+            <input type="text" th:field="*{name}">
+            <span class="ValidationError" th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">name
+            </span>
+        </h3>
+        <h3>
+            Введите автора книги:
+            <input type="text" th:field="*{author}">
+            <span class="ValidationError" th:if="${#fields.hasErrors('author')}"
+                  th:errors="*{author}">author
+            </span>
+        </h3>
+        <h3>
+            Введите год:
+            <input  type="number" th:field="*{year}">
+            <span class="ValidationError" th:if="${#fields.hasErrors('year')}"
+                  th:errors="*{year}">year
+            </span>
+        </h3>
+        <button>Создать!</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Person</title>
+</head>
+<body>
+    <h1>Страница человека</h1>
+    <div th:object="${person}">
+        <h3>
+            <span th:text="*{name + (year == null ? '' : ', ' + year)}"></span>
+        </h3>
+        <h3 th:if="*{bookList.size() == 0}">
+            Человек пока не взял ни одной книги
+        </h3>
+        <h3 th:if="*{bookList.size() != 0}">
+            <br>
+            Книги:
+        </h3>
+        <h3 th:each="book : *{bookList}" th:text="${book.name + ', ' + book.author + (book.year == null ? '' : ', ' + book.year)}"></h3>
+        <hr>
+        <a th:href="${'/people/' + id + '/edit'}"><button>редактировать</button></a>
+        <br>
+        <form th:action="${'/people/' + id + '/delete'}" method="post">
+            <button>удалить</button>
+        </form>
+    </div>
+</body>
+</html>

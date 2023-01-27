@@ -1,0 +1,34 @@
+<!doctype html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}"/>
+    <title>editPerson</title>
+</head>
+<body>
+    <h1>Страница изменения человека</h1>
+    <form method="post" action="/people/edit" th:object="${person}">
+        <h3>
+            Введите ФИО:
+            <input type="text" th:field="*{name}">
+            <span class="ValidationError" th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">name
+            </span>
+            <span class="ValidationError" th:if="${msg.equals('login busy')}">имя занято</span>
+        </h3>
+        <h3>
+            Введите год рождения:
+            <input  type="number" min="1900" th:field="*{year}">
+            <span class="ValidationError" th:if="${#fields.hasErrors('year')}"
+                  th:errors="*{year}">year
+            </span>
+        </h3>
+        <input type="hidden" th:field="*{id}" th:value="*{id}">
+        <button>Редактировать!</button>
+    </form>
+</body>
+</html>

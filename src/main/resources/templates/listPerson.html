@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>listPerson</title>
+</head>
+<body>
+    <h1>Страница со списком всех людей</h1>
+    <div th:each="peson : ${listPerson}">
+        <h3 th:object="${peson}">
+            <a th:href="*{'/people/' + id}" th:text="*{name + (year == null ? '' : ', ' + year)}"></a>
+        </h3>
+    </div>
+    <hr>
+    <h3>
+        <a href="/people/new">Добавить человека</a>
+    </h3>
+</body>
+</html>
